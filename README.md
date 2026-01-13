@@ -4,6 +4,8 @@ My config, settings, and dotfiles.
 
 ## Visual Studio Code
 
+![Preview](images/vscode.png)
+
 User settings: [settings.json](vscode/settings.json)
 
 Extensions needed:
