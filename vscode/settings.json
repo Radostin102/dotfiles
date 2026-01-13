@@ -27,5 +27,7 @@
     "files.trimTrailingWhitespace": true,
     "workbench.tree.indent": 16,
     "git.enableSmartCommit": true,
-    "git.confirmSync": false
+    "git.confirmSync": false,
+    "terminal.integrated.lineHeight": 1.2,
+    "explorer.confirmDragAndDrop": false
 }
