@@ -25,5 +25,7 @@
     "files.insertFinalNewline": true,
     "notebook.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "workbench.tree.indent": 16
+    "workbench.tree.indent": 16,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false
 }
