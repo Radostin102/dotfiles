@@ -1,0 +1,29 @@
+{
+    "workbench.sideBar.location": "right",
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "'JetBrains Mono', Consolas, monospace",
+    "editor.lineHeight": 1.5,
+    "security.workspace.trust.enabled": false,
+    "workbench.colorTheme": "Tokyo Night",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "workbench.list.smoothScrolling": true,
+    "terminal.integrated.smoothScrolling": true,
+    "editor.cursorBlinking": "smooth",
+    "workbench.reduceMotion": "off",
+    "workbench.startupEditor": "none",
+    "files.associations": {
+        "*.luau": "lua"
+    },
+    "extensions.ignoreRecommendations": true,
+    "editor.fontLigatures": true,
+    "files.trimFinalNewlines": true,
+    "workbench.editor.empty.hint": "hidden",
+    "explorer.confirmDelete": false,
+    "explorer.confirmPasteNative": false,
+    "files.insertFinalNewline": true,
+    "notebook.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.tree.indent": 16
+}
