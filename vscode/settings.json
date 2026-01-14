@@ -29,5 +29,6 @@
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "terminal.integrated.lineHeight": 1.2,
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "git.autofetch": true
 }
