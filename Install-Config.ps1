@@ -7,8 +7,8 @@ $is_admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIde
 if ($is_admin) {
     Write-Warning "You are running this script as Administrator."
     Write-Warning "The VS Code 'User Setup' should be installed as a Standard User to prevent permission issues."
-    $continue = Read-Host "Do you want to continue anyway? (Recommended: n) [y/n]"
-    if ($continue.ToLower() -ne 'y') {
+    $continue = (Read-Host "Do you want to continue anyway? (y/N)").Trim().ToLower()
+    if ($continue -ne 'y') {
         Exit
     }
 }
@@ -142,8 +142,7 @@ function Configure-VSCode {
 
 # --- Main Logic ---
 
-Clear-Host
-Write-Host "=== VS Code User Setup Script ===" -ForegroundColor Magenta
+Write-Host "--- Config Setup ---" -ForegroundColor Magenta
 
 $vscodeInstalled = $false
 if (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
@@ -154,7 +153,7 @@ if (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
 
 if ($vscodeInstalled) {
     Write-Host "VSCode is detected." -ForegroundColor Yellow
-    $response = (Read-Host "Do you want to re-apply the configuration? (y/n)").Trim().ToLower()
+    $response = (Read-Host "Do you want to apply the configuration? (y/n)").Trim().ToLower()
     if ($response -eq "y") {
         Configure-VSCode
     } else {
@@ -162,13 +161,13 @@ if ($vscodeInstalled) {
     }
 } else {
     Write-Host "VSCode is NOT detected." -ForegroundColor Yellow
-    $response = (Read-Host "Do you want to install VSCode? (y/n)").Trim().ToLower()
-    if ($response -eq "y") {
+    $response = (Read-Host "Do you want to install VSCode? (Y/n)").Trim().ToLower()
+    if ($response -eq "y" -or -not $response) {
         Install-VSCode
 
         # Ask to configure after install
-        $responseConfig = (Read-Host "Do you want to apply the configuration? (y/n)").Trim().ToLower()
-        if ($responseConfig -eq "y") {
+        $responseConfig = (Read-Host "Do you want to apply the configuration? (Y/n)").Trim().ToLower()
+        if ($responseConfig -eq "y" -or -not $responseConfig) {
             Configure-VSCode
         }
     } else {
@@ -177,4 +176,4 @@ if ($vscodeInstalled) {
 }
 
 Write-Host "Done." -ForegroundColor Green
-Pause
+Read-Host "Press Enter to exit..."
