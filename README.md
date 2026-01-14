@@ -2,6 +2,13 @@
 
 My config, settings, and dotfiles.
 
+## Windows quick-install
+
+> [!WARNING]
+> This will overwrite your current settings.
+
+Run the [Powershell script](Install-Config.ps1).
+
 ## Visual Studio Code
 
 ![Preview](images/vscode.png)
