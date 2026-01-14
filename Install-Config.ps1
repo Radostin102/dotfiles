@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-# 1. PRE-FLIGHT CHECK: Ensure we are NOT running as Admin for the main script
+# Ensure we are NOT running as Admin for the main script
 $is_admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if ($is_admin) {
     Write-Warning "You are running this script as Administrator."
@@ -26,8 +26,6 @@ function Install-VSCode {
     }
 
     Write-Host "Installing Visual Studio Code..." -ForegroundColor Cyan
-    # /verysilent: No GUI
-    # /mergetasks=!runcode: Do not launch code after install
     Start-Process -FilePath $vscodeInstaller -ArgumentList "/verysilent /mergetasks=!runcode" -Wait
 
     Remove-Item $vscodeInstaller -ErrorAction SilentlyContinue
@@ -38,7 +36,6 @@ function Install-Fonts-Admin {
     Write-Host "Preparing to install fonts..." -ForegroundColor Cyan
     Write-Host "A UAC prompt will appear to authorize Font Installation (Requires Admin)." -ForegroundColor Yellow
 
-    # We create a temporary script to handle the Admin-level work
     $fontScriptPath = "$env:TEMP\InstallFontsTemp.ps1"
 
     $scriptContent = @"
@@ -63,7 +60,7 @@ function Install-Fonts-Admin {
             `$fileName = `$file.Name
             Copy-Item -Path `$file.FullName -Destination `$fontDest -Force
 
-            # Registry Entry
+            # Registry entry
             `$regValueName = `$file.BaseName + " (TrueType)"
             Set-ItemProperty -Path `$registryKey -Name `$regValueName -Value `$fileName
         }
@@ -97,13 +94,12 @@ function Install-Fonts-Admin {
 }
 
 function Configure-VSCode {
-    # 1. Close VS Code
+    # Close VS Code
     Write-Host "Closing running VSCode instances..." -ForegroundColor Cyan
     Get-Process -Name "Code" -ErrorAction SilentlyContinue | Stop-Process -Force
 
-    # 2. Locate Code Executable
+    # Locate Code Executable
     $codeCommand = "code"
-    # Current session won't see the new PATH variable immediately after install, so we look for the file directly
     $manualPath = "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd"
 
     if (Test-Path $manualPath) {
@@ -113,14 +109,13 @@ function Configure-VSCode {
         return
     }
 
-    # 3. Install Extensions
+    # Install extensions
     Write-Host "Installing extensions..." -ForegroundColor Cyan
     & $codeCommand --install-extension enkia.tokyo-night --force
     & $codeCommand --install-extension PKief.material-icon-theme --force
 
-    # 4. Copy Settings
+    # Copy user settings
     Write-Host "Applying VSCode user settings..." -ForegroundColor Cyan
-    # Assumes settings.json is in a folder named 'vscode' next to this script
     $settingsSource = Join-Path $PSScriptRoot "vscode\settings.json"
     $settingsDestDir = "$env:APPDATA\Code\User"
     $settingsDest = Join-Path $settingsDestDir "settings.json"
@@ -136,11 +131,11 @@ function Configure-VSCode {
         Write-Warning "Skipping 'settings.json' copy."
     }
 
-    # 5. Install Fonts (Trigger separate Admin process)
+    # Install fonts (trigger separate Admin process)
     Install-Fonts-Admin
 }
 
-# --- Main Logic ---
+# Main logic
 
 Write-Host "--- Config Setup ---" -ForegroundColor Magenta
 
@@ -165,7 +160,6 @@ if ($vscodeInstalled) {
     if ($response -eq "y" -or -not $response) {
         Install-VSCode
 
-        # Ask to configure after install
         $responseConfig = (Read-Host "Do you want to apply the configuration? (Y/n)").Trim().ToLower()
         if ($responseConfig -eq "y" -or -not $responseConfig) {
             Configure-VSCode
