@@ -14,7 +14,8 @@
     "workbench.reduceMotion": "off",
     "workbench.startupEditor": "none",
     "files.associations": {
-        "*.luau": "lua"
+        "*.luau": "lua",
+        "*.toml": "toml"
     },
     "extensions.ignoreRecommendations": true,
     "editor.fontLigatures": true,
