@@ -31,5 +31,7 @@
     "git.confirmSync": false,
     "terminal.integrated.lineHeight": 1.2,
     "explorer.confirmDragAndDrop": false,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "python.languageServer": "Default",
+    "python.createEnvironment.trigger": "off"
 }
